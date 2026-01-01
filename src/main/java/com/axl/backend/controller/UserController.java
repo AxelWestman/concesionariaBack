@@ -36,4 +36,24 @@ public class UserController {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
+    @DeleteMapping("/eliminarUsuario/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long id){
+        try{
+            User savedUser = userService.deleteUser(id);
+            return  ResponseEntity.ok(savedUser);
+        } catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/obtenerUsuarioId/{id}")
+    public ResponseEntity<User> getUserId(@PathVariable Long id){
+        try{
+            User savedUser = userService.getUserId(id);
+            return ResponseEntity.ok(savedUser);
+        } catch(RuntimeException e){
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(null);
+        }
+    }
+
 }
