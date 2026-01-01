@@ -21,7 +21,7 @@ public class User {
 
     @ManyToOne //indica muchos users, un role
     @JoinColumn(name = "role_id", nullable = false)
-    private Role role;
+    private Role role_id;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -33,7 +33,7 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.role = role;
+        this.role_id = role;
     }
 
     // 🔹 Auto setear created_at
@@ -60,7 +60,7 @@ public class User {
     }
 
     public Role getRole() {
-        return role;
+        return role_id;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -80,7 +80,7 @@ public class User {
     }
 
     public void setRole(Role role) {
-        this.role = role;
+        this.role_id = role;
     }
 
 
