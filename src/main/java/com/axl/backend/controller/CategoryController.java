@@ -36,6 +36,16 @@ public class CategoryController {
         return ResponseEntity.ok(categoryService.getAllCategories());
     }
 
+    @GetMapping("/obtenerCategoriaId/{id}")
+    public ResponseEntity<?> getCategoryId(@PathVariable Long id){
+        try {
+            Category savedCategory = categoryService.getCategoryId(id);
+            return ResponseEntity.ok(savedCategory);
+        } catch(RuntimeException e){
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }
+
     @DeleteMapping("/eliminarCategoria/{id}")
     public ResponseEntity<?> deleteCategory(@PathVariable Long id){
         try{

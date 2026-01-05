@@ -12,6 +12,9 @@ public class Product {
     private Long id;
 
     @Column
+    private String name_product;
+
+    @Column
     private String description;
 
     @Column(nullable = false)
@@ -27,7 +30,8 @@ public class Product {
 
     public Product(){}
 
-    public Product(Long id, String description, BigDecimal price, Category category_id, LocalDateTime createdAt) {
+    public Product(String name_product, String description, BigDecimal price, Category category_id) {
+        this.name_product = name_product;
         this.description = description;
         this.price = price;
         this.category_id = category_id;
@@ -42,6 +46,13 @@ public class Product {
         return id;
     }
 
+    public String getName_product(){
+        return name_product;
+    }
+
+    public void setName_product(String name_product){
+        this.name_product = name_product;
+    }
 
     public String getDescription() {
         return description;
