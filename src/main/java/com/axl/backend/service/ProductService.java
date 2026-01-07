@@ -13,12 +13,12 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
 
-    public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository){
+    public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
     }
 
-    public Product createProduct(ProductDTO dto){
+    public Product createProduct(ProductDTO dto) {
 
         Category category = categoryRepository.findById(dto.getCategory_id()).orElseThrow(() -> new RuntimeException("Caregoría no encontrada"));
 
@@ -33,9 +33,35 @@ public class ProductService {
 
     }
 
-    public List<Product> getAllProducts(){
+    public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
 
+    public Product getProductById(Long id) {
+        Product product = productRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
+        return product;
+    }
+
+    public Product deleteProduct(Long id) {
+        Product product = this.getProductById(id);
+        productRepository.deleteById(product.getId());
+        return product;
+    }
+
+    public Product modifyProduct(ProductDTO dto, Long id){
+        Product product = this.getProductById(id);
+
+        product.setName_product(dto.getName_product());
+        product.setDescription(dto.getDescription());
+        product.setPrice(dto.getPrice());
+
+        if(dto.getCategory_id() != null){
+            Category category = categoryRepository.findById(dto.getCategory_id()).orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
+            product.setCategory_id(category);
+        }
+
+        return productRepository.save(product);
+
+    }
 
 }

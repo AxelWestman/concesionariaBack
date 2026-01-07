@@ -21,7 +21,7 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @PostMapping("/añadirProducto")
+    @PostMapping("/anadirProducto")
     public ResponseEntity<?> createProduct(@RequestBody ProductDTO product){
         try{
             Product savedProduct = productService.createProduct(product);
@@ -34,6 +34,32 @@ public class ProductController {
     @GetMapping("/obtenerTodosLosProductos")
     public ResponseEntity<List<Product>> getAllProducts(){
         return ResponseEntity.ok(productService.getAllProducts());
+    }
+
+    @GetMapping("/obtenerProductoPorId/{id}")
+    public ResponseEntity<?> getProductById(@PathVariable Long id){
+        try{
+            Product savedProduct = productService.getProductById(id);
+            return ResponseEntity.ok(savedProduct);
+        } catch(RuntimeException e){
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/eliminarProducto/{id}")
+    public ResponseEntity<?> deleteProduct(@PathVariable Long id){
+        try{
+            Product savedProduct = productService.deleteProduct(id);
+            return ResponseEntity.ok(savedProduct);
+        } catch(RuntimeException e){
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/modificarProducto/{id}")
+    public ResponseEntity<Product> updateProduct(@RequestBody ProductDTO dto, @PathVariable Long id){
+        Product updateProduct = productService.modifyProduct(dto, id);
+        return ResponseEntity.ok(updateProduct);
     }
 
 
