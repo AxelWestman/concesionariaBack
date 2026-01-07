@@ -67,4 +67,8 @@ public class Customer {
         this.phone = phone;
     }
 
+    public LocalDateTime getCreatedAt(){
+        return createdAt;
+    }
+
 }
