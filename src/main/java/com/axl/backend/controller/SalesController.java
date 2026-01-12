@@ -33,5 +33,24 @@ public class SalesController {
         return ResponseEntity.ok(this.salesService.getAllSales());
     }
 
+    @GetMapping("/obtenerVentaPorId/{id}")
+    public ResponseEntity<?> getSaleById(@PathVariable Long id){
+        try{
+            Sales savedSale = salesService.getSaleById(id);
+            return ResponseEntity.ok(savedSale);
+        } catch(RuntimeException e){
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/eliminarVenta/{id}")
+    public ResponseEntity<?> deleteSale(@PathVariable Long id){
+        try{
+            Sales savedSale = salesService.deleteSale(id);
+            return ResponseEntity.ok(savedSale);
+        } catch(RuntimeException e){
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }
 
 }

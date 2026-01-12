@@ -31,6 +31,17 @@ public class SalesService {
 
     }
 
+    public Sales getSaleById(Long id){
+        Sales sale = salesRepository.findById(id).orElseThrow(() -> new RuntimeException("Sale not found"));
+        return sale;
+    }
+
     public List<Sales> getAllSales(){ return salesRepository.findAll(); }
+
+    public Sales deleteSale(Long id){
+        Sales sale = this.getSaleById(id);
+        salesRepository.deleteById(sale.getId());
+        return sale;
+    }
 
 }
